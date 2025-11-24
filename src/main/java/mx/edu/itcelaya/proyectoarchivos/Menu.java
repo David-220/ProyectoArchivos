@@ -8,7 +8,6 @@ public class Menu
     Alumnos al = new Alumnos();
     Materias ma = new Materias();
     Inscripcion ins = new Inscripcion();
-    String insAl, insMa;
     int op1 = 0;
     int op2;
     
@@ -16,13 +15,30 @@ public class Menu
     {
         mainMenu();
     }
+    
+    public int recibeNum(){
+        
+        try 
+        {
+            //valida la entrada de un numero
+            int numero = Integer.parseInt(scan.nextLine().trim());
+            return numero; 
+            
+        } catch (NumberFormatException e) 
+        {  
+            //si da error regresara al menu y dara el mensaje default
+            return 0;
+        }
+        
+    }
 
     private void mainMenu() 
     {        
         while(op1!=4)
         {    
-            op2 = 0;
             // mostrar opciones
+            
+            op1=recibeNum();
             
             switch (op1) 
             {
@@ -30,14 +46,17 @@ public class Menu
                     menuAlumnos();
                     break;
                 case 2:
-                    menuMaterias();
+                    //menuMaterias();
                     break;
                 case 3:
-                    procesoInscripcion();
+                    //procesoInscripcion();
                     break;
                 case 4:
                     System.out.println("Fin del proceso");
                     break;
+                default:
+                    System.out.println("Ingrese una opcion valida");
+                    System.out.println();
             }            
         }         
     }
@@ -49,10 +68,12 @@ public class Menu
             
             //mostrar opciones 
             
+            op2=recibeNum();
+            
             switch (op2) 
             {
                 case 1:
-                    //altas
+                    al.alta();
                     break;
                 case 2:
                     //bus binaria
@@ -64,8 +85,12 @@ public class Menu
                     //mod
                     break;
                 case 5:
+                    //ordenar por si le falta
                     System.out.println("Regresando al menu principal.");
                     break;
+                default:
+                    System.out.println("Ingrese una opcion valida");
+                    System.out.println();
             } 
         }
     }
@@ -77,6 +102,8 @@ public class Menu
             
             // mostrar opciones
             
+            op2=recibeNum();
+            
             switch (op2) 
             {
                 case 1:
@@ -92,8 +119,12 @@ public class Menu
                     //mod
                     break;
                 case 5:
+                    //ordenar por si las moscas
                     System.out.println("Regresando al menu principal.");
                     break;
+                default:
+                    System.out.println("Ingrese una opcion valida");
+                    System.out.println();
             } 
         }
     }
