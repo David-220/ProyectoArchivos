@@ -97,5 +97,38 @@ public class GestorDeArchivos {
                break;
             }
         }
-    }  
+    }
+    
+    public void reporte(String nomArch,String nomRepo, String tituloCentrado, String subTitulos, int tamReg, String[] formatos)
+    {
+        try (
+        RandomAccessFile entrada = new RandomAccessFile(nomArch, "r");
+        PrintWriter salida = new PrintWriter(new FileWriter(nomRepo))
+        ) {
+            String[] datosRepo;
+            
+            System.out.println(tituloCentrado);
+            salida.println(tituloCentrado);
+            
+            System.out.println(subTitulos);
+            salida.println(subTitulos);
+            //ciclo que lee cada linea
+            for(int i=0;i< (int)(entrada.length())/tamReg;i++)
+            {
+                datosRepo = leerReg(entrada, tamReg, i, formatos);
+                //ciclo que imprime cada linea
+                for(int j=0; j<formatos.length; j++)
+                {
+                    System.out.print("  " + datosRepo[j] + "  ");
+                    salida.print("  " + datosRepo[j] + "  ");
+                }
+                System.out.println();
+                salida.println();
+            }
+
+        } catch (IOException e) {
+            // Este catch captura errores de ambos archivos
+            System.err.println("Error de entrada/salida: " + e.getMessage());
+        }
+    }
 }

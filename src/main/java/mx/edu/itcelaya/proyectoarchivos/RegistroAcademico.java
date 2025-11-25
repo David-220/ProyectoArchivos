@@ -6,8 +6,11 @@ public class RegistroAcademico {
     //Los nombres de todos los archivos juntos
     //porque inscripcion tiene que acceder a su informacion
     String[] nomArch = {"Alumnos.dat","Materias.dat","Inscripciones.dat"};
+    String[] nomRepo = {"ReporteAlumnos.txt","ReporteMaterias.txt","ReporteInscripciones.txt"};
     //dependiendo a que archivo te refieras
     int nArch;
+    
+    String[] atriCapturables;
     
     //tamaño registro todas las clases lo usan
      int tamReg;
@@ -18,7 +21,8 @@ public class RegistroAcademico {
     
     String[] instruccionesAltas;
     //en el constructor de las clases hijas se definen los formatos
-    public RegistroAcademico(String[] formatos, String[] instruccionesAltas) {
+    public RegistroAcademico(String[] atriCapturables, String[] formatos, String[] instruccionesAltas) {
+        this.atriCapturables = atriCapturables;
         this.formatos = formatos;
         this.instruccionesAltas = instruccionesAltas;
     }
@@ -30,4 +34,16 @@ public class RegistroAcademico {
         arch.altaReg(nomArch[nArch], tamReg, formatos, instruccionesAltas);
     }
     
+    
+    void reporte()
+    {
+        String subTitulos = "";
+        String tituloCentrado = (String.format("%"+((tamReg/2) + (nomArch[nArch].length()/2) + (formatos.length*2))+"s", nomArch[nArch]));
+        for(int i =0; i<formatos.length; i++)
+        {
+            subTitulos = subTitulos + "  " + String.format(formatos[i], atriCapturables[i]) + "  ";
+        }
+        
+        arch.reporte(nomArch[nArch], nomRepo[nArch], tituloCentrado, subTitulos, tamReg, formatos);
+    }
 }

@@ -79,7 +79,7 @@ public class Menu
                     //bus binaria
                     break;
                 case 3:
-                    //reporte
+                    al.reporte();
                     break;
                 case 4:
                     //mod
