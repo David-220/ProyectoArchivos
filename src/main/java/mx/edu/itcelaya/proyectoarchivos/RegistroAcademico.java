@@ -1,40 +1,32 @@
 package mx.edu.itcelaya.proyectoarchivos;
 
-public class RegistroAcademico {
-    GestorDeArchivos arch = new GestorDeArchivos();
+import java.io.*;
+import java.util.Scanner;
+
+public abstract class RegistroAcademico {
     
-    //Los nombres de todos los archivos juntos
-    //porque inscripcion tiene que acceder a su informacion
-    String[] nomArch = {"Alumnos.dat","Materias.dat","Inscripciones.dat"};
-    String[] nomRepo = {"ReporteAlumnos.txt","ReporteMaterias.txt","ReporteInscripciones.txt"};
-    //dependiendo a que archivo te refieras
-    int nArch;
+    Scanner scan = new Scanner(System.in);
+    //nombres archivos
+    //"Alumnos.dat","Materias.dat","Inscripciones.dat"
+    //nombres reportes
+    //"ReporteAlumnos.txt","ReporteMaterias.txt","ReporteInscripciones.txt"
+    String nomArch;
     
-    String[] atriCapturables;
+    String nomRepo;
     
-    //tamaño registro todas las clases lo usan
-     int tamReg;
+    int tamReg;
     
-    //Aqui se guardaran los formatos de los datos
-    //es array porque hay distintos numeros de datos
-    String[] formatos;
+    String tituloCentrado;
     
-    String[] instruccionesAltas;
-    //en el constructor de las clases hijas se definen los formatos
-    public RegistroAcademico(String[] atriCapturables, String[] formatos, String[] instruccionesAltas) {
-        this.atriCapturables = atriCapturables;
-        this.formatos = formatos;
-        this.instruccionesAltas = instruccionesAltas;
-    }
+    String subTitulos;
     
+    public abstract void alta();
+    public abstract void busqueda();
+    public abstract void reporte();
+    public abstract void modificaciones();
+    public abstract void ordenar();
     
-    
-    void alta()
-    {
-        arch.altaReg(nomArch[nArch], tamReg, formatos, instruccionesAltas);
-    }
-    
-    
+    /*
     void reporte()
     {
         String subTitulos = "";
@@ -46,4 +38,5 @@ public class RegistroAcademico {
         
         arch.reporte(nomArch[nArch], nomRepo[nArch], tituloCentrado, subTitulos, tamReg, formatos);
     }
+    */
 }

@@ -3,7 +3,8 @@ package mx.edu.itcelaya.proyectoarchivos;
 import java.io.*;
 import java.util.Scanner;
 
-public class GestorDeArchivos {
+public class GestorDeArchivos 
+{
     Scanner scan = new Scanner(System.in);
     
     //unicamente busca ultimo renglon, captura y escribe
@@ -98,7 +99,31 @@ public class GestorDeArchivos {
             }
         }
     }
-    
+    /*
+    public void busqueda (String nomArch, int tamReg, String[] formatos) {
+        int li, ls, pm;
+        boolean flag1;
+        String bus;
+        try (RandomAccessFile canal = new RandomAccessFile(nomArch, "r")) {
+            System.out.println("Seleccione el registro a buscar: ");
+            bus = scan.nextLine();
+            li = 0;
+            ls = (int)(canal.length() / tamReg)-1;
+            do {
+                pm = (li+ls)/2;
+                canal.seek(pm*tamReg);
+                if (canal.readUTF().compareTo(bus) < 0) {
+                    li = pm+1;
+                }
+                else {
+                    ls = pm-1;
+                }
+                canal.seek(pm*tamReg);
+            }while(!canal.readUTF.);
+        }catch(Exception ex) {         
+        }
+    }
+    */
     public void reporte(String nomArch,String nomRepo, String tituloCentrado, String subTitulos, int tamReg, String[] formatos)
     {
         try (

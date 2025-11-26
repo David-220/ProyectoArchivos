@@ -9,7 +9,7 @@ public class Menu
     Materias ma = new Materias();
     Inscripcion ins = new Inscripcion();
     int op1 = 0;
-    int op2;
+    int op2 = 0;
     
     public Menu() 
     {
@@ -36,7 +36,13 @@ public class Menu
     {        
         while(op1!=4)
         {    
-            // mostrar opciones
+            System.out.println("Menú de opciones");
+            System.out.println("1) Alumnos");
+            System.out.println("2) Materias");
+            System.out.println("3) Inscripcion");
+            System.out.println("4) Salida");
+            System.out.println();
+            System.out.print("Ingresa la opcion:");
             
             op1=recibeNum();
             
@@ -66,7 +72,14 @@ public class Menu
         while(op2!=5)
         {  
             
-            //mostrar opciones 
+            System.out.println("Menú de Alumnos");
+            System.out.println("1) Altas");
+            System.out.println("2) Consulta");
+            System.out.println("3) Reporte");
+            System.out.println("4) Modificacion");
+            System.out.println("5) Salida");
+            System.out.println();
+            System.out.print("Ingresa la opcion:");
             
             op2=recibeNum();
             
@@ -76,16 +89,19 @@ public class Menu
                     al.alta();
                     break;
                 case 2:
-                    //bus binaria
+                    al.ordenar();
+                    al.busqueda();
                     break;
                 case 3:
+                    al.ordenar();
                     al.reporte();
                     break;
                 case 4:
-                    //mod
+                    al.ordenar();
+                    al.modificaciones();
                     break;
                 case 5:
-                    //ordenar por si le falta
+                    al.ordenar();
                     System.out.println("Regresando al menu principal.");
                     break;
                 default:
@@ -100,7 +116,14 @@ public class Menu
         while(op2!=5)
         {  
             
-            // mostrar opciones
+            System.out.println("Menú de Alumnos");
+            System.out.println("1) Altas");
+            System.out.println("2) Consulta");
+            System.out.println("3) Reporte");
+            System.out.println("4) Modificacion");
+            System.out.println("5) Salida");
+            System.out.println();
+            System.out.print("Ingresa la opcion:");
             
             op2=recibeNum();
             
