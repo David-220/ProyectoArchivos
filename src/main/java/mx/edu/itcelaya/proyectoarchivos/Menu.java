@@ -27,6 +27,7 @@ public class Menu
         } catch (NumberFormatException e) 
         {  
             //si da error regresara al menu y dara el mensaje default
+            System.out.println("Error: Intetnta de nuevo con un numero entero.");
             return 0;
         }
         
@@ -34,7 +35,7 @@ public class Menu
 
     private void mainMenu() 
     {        
-        while(op1!=4)
+        do
         {    
             System.out.println("Menú de opciones");
             System.out.println("1) Alumnos");
@@ -46,30 +47,30 @@ public class Menu
             
             op1=recibeNum();
             
-            switch (op1) 
+            switch (op1)//Menu de  
             {
-                case 1:
+                case 1://Alumnos
                     menuAlumnos();
                     break;
-                case 2:
+                case 2://Materias
                     //menuMaterias();
                     break;
-                case 3:
+                case 3://Inscripcion
                     //procesoInscripcion();
                     break;
-                case 4:
+                case 4://Fin del programa
                     System.out.println("Fin del proceso");
                     break;
                 default:
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
             }            
-        }         
+        }while(op1!=4);         
     }
 
     private void menuAlumnos() 
     {
-        while(op2!=5)
+        do
         {  
             
             System.out.println("Menú de Alumnos");
@@ -85,22 +86,22 @@ public class Menu
             
             switch (op2) 
             {
-                case 1:
+                case 1: //Altas a alumnos
                     al.alta();
                     break;
-                case 2:
+                case 2: //Consultas de alumnos
                     al.ordenar();
                     al.busqueda();
                     break;
-                case 3:
+                case 3: //Reporte de alumnos
                     al.ordenar();
                     al.reporte();
                     break;
-                case 4:
+                case 4: //Modificar alumnos
                     al.ordenar();
                     al.modificaciones();
                     break;
-                case 5:
+                case 5: //Salir y dejamos el archivo ordenado
                     al.ordenar();
                     System.out.println("Regresando al menu principal.");
                     break;
@@ -108,7 +109,7 @@ public class Menu
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
             } 
-        }
+        }while(op2!=5);
     }
 
     private void menuMaterias() 
