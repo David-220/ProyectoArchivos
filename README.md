@@ -1,12 +1,21 @@
 # ProyectoArchivos
 
-###Para probar lo que ya esta hecho.
+### Para probar lo que ya esta hecho.
 
-1. Puchale 1 para entrar a alumnos
-2. Puchale 1 para dar de alta
-3. puchale 3 para el reporte
-4. pucha 5 para salir de alumnos
-5. pucha 4 para salir del programa
-6. Depositame 100 bolas
+1. Entra en alumnos o en materias
+2. Prueba lo que quieras y combrueba que no haya errores
+3. Inscripcion no esta habilitado
 
-Prueba de que puedo hacer un push :D (Att.Adri)
+### ya solo me faltan 30 mexicopesos
+
+## Pendientes 
+* ### Necesarios
+* Inscripciones
+* Menu de inscripciones
+
+* ### Opcionales/No urgentes
+* Formato mas bonito de menu
+* Eliminar la clase GestorDeArchivos
+
+![Maldito interneis](https://media.tenor.com/CgGUXc-LDc4AAAAM/hacker-pc.gif "Yo ese")
+

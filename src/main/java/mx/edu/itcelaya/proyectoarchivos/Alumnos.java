@@ -4,6 +4,7 @@ import java.io.*;
 
 public class Alumnos extends RegistroAcademico
 {    
+    
     public Alumnos() {
         
         nomArch = "Alumnos.dat";
@@ -17,6 +18,7 @@ public class Alumnos extends RegistroAcademico
         subTitulos = "  " + String.format("%-8.8s","numCtrl") +"    " + String.format("%-40.40s","nombre") +"    "+ String.format("%-4.4s","sem")+"  ";
            
     }
+    
 
     @Override
     public void alta() 
@@ -31,17 +33,55 @@ public class Alumnos extends RegistroAcademico
             System.err.println("Ocurrió un error: " + e.getMessage());
         }    
     }
-    
-    void ingresaDatos(RandomAccessFile canal, int nReg) throws IOException
+    void ingresaDatos(RandomAccessFile canal, int nReg) throws IOException 
     {
+        String numControl;
+        boolean numCtrlValido=false;
+
+        // Checar que el numero de control no se repita, si lo hace repetir hasta que sea valido
+        do {
+            System.out.print("Ingresa el numero de control: ");
+            numControl = scan.nextLine().trim();
+
+            if(existeNumeroControl(canal, numControl)) {
+                System.out.println("Error: El numero de control "+numControl+" ya existe");
+                System.out.println("Ingresa un numero de control diferente");
+            } else {
+                numCtrlValido = true;
+            }
+        } while (!numCtrlValido);
+        //Como aseguramos que es valido el nroCtrl ya podemos escribir a gusto la modificacion
+        canal.seek(nReg * tamReg);
+        canal.writeUTF(String.format("%-8.8s", numControl));
+        System.out.print("Ingresa nombre del alumno: ");
+        canal.writeUTF(String.format("%-40.40s", scan.nextLine()));
+        System.out.print("Ingresa semestre del alumno: ");
+        canal.writeUTF(String.format("%-4.4s", scan.nextLine()));
+    }
+    
+    void ingresaModificaciones(RandomAccessFile canal, int nReg,String nroCtrl) throws IOException
+    {//Metodo disenado para no cambiar el numero de control del alumno
         canal.seek(nReg*tamReg);
-        System.out.print("Ingresa num de control: ");
-        canal.writeUTF(String.format("%-8.8s",scan.nextLine()));
+        canal.writeUTF(String.format("%-8.8s",nroCtrl));
         System.out.print("Ingresa nombre del alumno: ");
         canal.writeUTF(String.format("%-40.40s",scan.nextLine()));
         System.out.print("Ingresa semestre del alumno: ");
         canal.writeUTF(String.format("%-4.4s",scan.nextLine()));
         System.out.println();
+    }
+    
+    boolean existeNumeroControl(RandomAccessFile canal, String numCtrl) throws IOException 
+    {
+        int totalRegistros = (int)(canal.length() / tamReg);
+
+        for(int i = 0; i < totalRegistros; i++) {
+            canal.seek(i * tamReg);
+            String numControlExistente = canal.readUTF().trim();
+            if(numControlExistente.equals(numCtrl)) {
+                return true;  //Existe
+            }
+        }
+        return false;  //No joven, no existe xd
     }
     
     String[] leerReg(RandomAccessFile canal, int nReg) throws IOException
@@ -175,7 +215,10 @@ public class Alumnos extends RegistroAcademico
                 System.out.println("listo para modificar");
                 System.out.println();
                 
-                ingresaDatos(canal, nReg);
+                canal.seek(nReg * tamReg); 
+                String nC=canal.readUTF().trim();  // Leer el numero de control
+                
+                ingresaModificaciones(canal, nReg,nC);
                 
                 System.out.println();
                 
@@ -187,49 +230,36 @@ public class Alumnos extends RegistroAcademico
     }
 
     @Override
-    public void ordenar()
+    public void ordenar() 
     {
-        try (RandomAccessFile canal = new RandomAccessFile(nomArch, "rw")) 
-        {
+        try (RandomAccessFile canal = new RandomAccessFile(nomArch, "rw")) {
             boolean ban;
             String[] datos1;
             String[] datos2;
-            for(int i=1;i< (int)(canal.length())/tamReg;i++)
-            {
-                //reinicio de bandera
-                ban = true;
-                for(int j=1;j<=((int)(canal.length()/tamReg)-i);j++)
-                {
+            int totalRegistros = (int)(canal.length() / tamReg);
 
+            for(int i = 1; i < totalRegistros; i++) {
+                ban = true;
+                for(int j = 1; j <= (totalRegistros - i); j++) {
                     datos1 = leerReg(canal, j-1);
                     datos2 = leerReg(canal, j);
-                    
-                    if(datos1[0].compareTo(datos2[0])>0)
-                    {
 
-                        canal.seek(j*tamReg);
-                        for(int n = 0; n<3; n++)
-                        {
+                    if(datos1[0].compareTo(datos2[0]) > 0) {
+                        // Intercambiar registros
+                        canal.seek(j * tamReg);
+                        for(int n = 0; n < 3; n++) {
                             canal.writeUTF(datos1[n]);
                         }
 
-                        canal.seek((j-1)*tamReg);
-                        for(int n = 0; n<3; n++)
-                        {
+                        canal.seek((j-1) * tamReg);
+                        for(int n = 0; n < 3; n++) {
                             canal.writeUTF(datos2[n]);
                         }
-
                         ban = false;
                     }
                 }
-
-                if(ban)
-                {
-                   break;
-                }
-
-            }  
-            
+                if(ban) break;
+            }
         } catch (IOException e) {
             System.err.println("Ocurrió un error: " + e.getMessage());
         }

@@ -27,6 +27,7 @@ public class Menu
         } catch (NumberFormatException e) 
         {  
             //si da error regresara al menu y dara el mensaje default
+            System.out.println("Error: Intetnta de nuevo con un numero entero.");
             return 0;
         }
         
@@ -34,7 +35,7 @@ public class Menu
 
     private void mainMenu() 
     {        
-        while(op1!=4)
+        do
         {    
             System.out.println("Menu de opciones");
             System.out.println("1) Alumnos");
@@ -46,32 +47,35 @@ public class Menu
             
             op1=recibeNum();
             
+
             System.out.println();
             
             switch (op1) 
+                
             {
-                case 1:
+                case 1://Alumnos
                     menuAlumnos();
                     break;
-                case 2:
-                    //menuMaterias();
+                case 2://Materias
+                    menuMaterias();
                     break;
-                case 3:
+                case 3://Inscripcion
+                    System.out.println("Opcion no habilitada aun.");
                     //procesoInscripcion();
                     break;
-                case 4:
+                case 4://Fin del programa
                     System.out.println("Fin del proceso");
                     break;
                 default:
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
             }            
-        }         
+        }while(op1!=4);         
     }
 
     private void menuAlumnos() 
     {
-        while(op2!=5)
+        do
         {  
             
             System.out.println("Menu de Alumnos");
@@ -89,22 +93,22 @@ public class Menu
             
             switch (op2) 
             {
-                case 1:
+                case 1: //Altas a alumnos
                     al.alta();
                     break;
-                case 2:
+                case 2: //Consultas de alumnos
                     al.ordenar();
                     al.busqueda();
                     break;
-                case 3:
+                case 3: //Reporte de alumnos
                     al.ordenar();
                     al.reporte();
                     break;
-                case 4:
+                case 4: //Modificar alumnos
                     al.ordenar();
                     al.modificaciones();
                     break;
-                case 5:
+                case 5: //Salir y dejamos el archivo ordenado
                     al.ordenar();
                     System.out.println("Regresando al menu principal.");
                     System.out.println();
@@ -113,7 +117,7 @@ public class Menu
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
             } 
-        }
+        }while(op2!=5);
     }
 
     private void menuMaterias() 
@@ -121,7 +125,8 @@ public class Menu
         while(op2!=5)
         {  
             
-            System.out.println("Menu de Alumnos");
+            System.out.println("Menú de Materias");
+
             System.out.println("1) Altas");
             System.out.println("2) Consulta");
             System.out.println("3) Reporte");
@@ -136,20 +141,24 @@ public class Menu
             
             switch (op2) 
             {
-                case 1:
-                    //altas
+                case 1://Altas
+                    ma.alta();
                     break;
-                case 2:
-                    //bus binaria
+                case 2://Consulta
+                    ma.ordenar();
+                    ma.busqueda();
                     break;
-                case 3:
-                    //reporte
+                case 3://Reporte
+                    ma.ordenar();
+                    ma.reporte();
                     break;
-                case 4:
-                    //mod
+                case 4://Modificacion
+                    ma.ordenar();
+                    ma.modificaciones();
                     break;
-                case 5:
+                case 5://Salida
                     //ordenar por si las moscas
+                    ma.ordenar();
                     System.out.println("Regresando al menu principal.");
                     System.out.println();
                     break;
