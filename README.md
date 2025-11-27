@@ -15,7 +15,6 @@
 
 * ### Opcionales/No urgentes
 * Formato mas bonito de menu
-* Eliminar la clase GestorDeArchivos
 
 ![Maldito interneis](https://media.tenor.com/CgGUXc-LDc4AAAAM/hacker-pc.gif "Yo ese")
-
+![Linux es clave](https://media.tenor.com/hYtsEeVzja4AAAAM/thinking-meme.gif "el Tony")
