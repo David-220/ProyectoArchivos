@@ -1,8 +1,6 @@
 package mx.edu.itcelaya.proyectoarchivos;
 
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Alumnos extends RegistroAcademico
 {    
@@ -26,7 +24,7 @@ public class Alumnos extends RegistroAcademico
     public void alta() 
     {
         try (RandomAccessFile canal = new RandomAccessFile(nomArch, "rw")) {
-            //calculamos el renglon
+            
             int nReg=(int)canal.length()/tamReg;
             
             ingresaDatos(canal,nReg);
@@ -69,6 +67,7 @@ public class Alumnos extends RegistroAcademico
         canal.writeUTF(String.format("%-40.40s",scan.nextLine()));
         System.out.print("Ingresa semestre del alumno: ");
         canal.writeUTF(String.format("%-4.4s",scan.nextLine()));
+        System.out.println();
     }
     
     boolean existeNumeroControl(RandomAccessFile canal, String numCtrl) throws IOException 
@@ -88,10 +87,9 @@ public class Alumnos extends RegistroAcademico
     String[] leerReg(RandomAccessFile canal, int nReg) throws IOException
     {
         String[] datosLeidos = new String[3];
-        //posicionamos el cursor
+        
         canal.seek(nReg*tamReg);
 
-        //
         for(int i = 0; i<3; i++)
         {
             datosLeidos[i] = canal.readUTF();
@@ -119,7 +117,7 @@ public class Alumnos extends RegistroAcademico
                     System.out.print("  " + datos[j] + "  ");
                 }
                 System.out.println();
-                
+                System.out.println();
             }
             
         } catch (IOException e) {
@@ -127,22 +125,45 @@ public class Alumnos extends RegistroAcademico
         }
     }
     
-    int busRenglon(RandomAccessFile canal) throws IOException {
-        String bus;
+    int busRenglon(RandomAccessFile canal) throws IOException{
+        int li, ls, pm;
+        //boolean flag1; no la use
         System.out.print("ingresa numero de control: ");
-        bus = scan.nextLine();
-
-        int totalRegistros = (int)(canal.length() / tamReg);
-
-        for(int i = 0; i < totalRegistros; i++) {
-            canal.seek(i * tamReg);
-            String numControl = canal.readUTF().trim();
-            if(numControl.equals(bus)) {
-                return i;
+        String bus = scan.nextLine();
+        System.out.println("bus es: "+bus);
+        li = 0;
+        String aux;
+        System.out.println("li "+li);
+        ls = (int)(canal.length() / tamReg)-1;
+        System.out.println("ls "+ls);
+        do 
+        {
+            pm = (li+ls)/2;
+            System.out.println("pm "+pm);
+            canal.seek(pm*tamReg);
+            aux = canal.readUTF();
+            System.out.println("aux " + aux);
+            if (aux.compareTo(bus) < 0) {
+                
+                li = pm+1;
+                System.out.println("li "+li);
             }
+            else {
+                ls = pm-1;
+                System.out.println("ls "+ls);
+            }
+            canal.seek(pm*tamReg);
+        }while(!bus.equals(aux) && li<=ls);
+        
+        if(bus.equals(canal.readUTF()))
+        {
+            return pm;
         }
-        System.out.println(bus + " no existe");
-        return -1;
+        else
+        {
+            System.out.println(bus + " no existe");
+            return -1;
+        }
     }
 
     @Override
@@ -171,6 +192,8 @@ public class Alumnos extends RegistroAcademico
                 System.out.println();
                 salida.println();
             }
+            
+            System.out.println();
             
         } catch (IOException e) {
             System.err.println("Ocurrió un error: " + e.getMessage());
