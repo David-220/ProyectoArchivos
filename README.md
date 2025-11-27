@@ -20,4 +20,3 @@
 
 ![Maldito interneis](https://media.tenor.com/CgGUXc-LDc4AAAAM/hacker-pc.gif "Yo ese")
 
-Prueba de que puedo hacer un push :D (Att.Adri)
