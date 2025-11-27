@@ -35,17 +35,32 @@ public class Alumnos extends RegistroAcademico
             System.err.println("Ocurrió un error: " + e.getMessage());
         }    
     }
-    
-    void ingresaDatos(RandomAccessFile canal, int nReg) throws IOException
+    void ingresaDatos(RandomAccessFile canal, int nReg) throws IOException 
     {
-        canal.seek(nReg*tamReg);
-        System.out.print("Ingresa num de control: ");
-        canal.writeUTF(String.format("%-8.8s",scan.nextLine()));
+        String numControl;
+        boolean numCtrlValido=false;
+
+        // Checar que el numero de control no se repita, si lo hace repetir hasta que sea valido
+        do {
+            System.out.print("Ingresa el numero de control: ");
+            numControl = scan.nextLine().trim();
+
+            if(existeNumeroControl(canal, numControl)) {
+                System.out.println("Error: El numero de control "+numControl+" ya existe");
+                System.out.println("Ingresa un numero de control diferente");
+            } else {
+                numCtrlValido = true;
+            }
+        } while (!numCtrlValido);
+        //Como aseguramos que es valido el nroCtrl ya podemos escribir a gusto la modificacion
+        canal.seek(nReg * tamReg);
+        canal.writeUTF(String.format("%-8.8s", numControl));
         System.out.print("Ingresa nombre del alumno: ");
-        canal.writeUTF(String.format("%-40.40s",scan.nextLine()));
+        canal.writeUTF(String.format("%-40.40s", scan.nextLine()));
         System.out.print("Ingresa semestre del alumno: ");
-        canal.writeUTF(String.format("%-4.4s",scan.nextLine()));
+        canal.writeUTF(String.format("%-4.4s", scan.nextLine()));
     }
+    
     void ingresaModificaciones(RandomAccessFile canal, int nReg,String nroCtrl) throws IOException
     {//Metodo disenado para no cambiar el numero de control del alumno
         canal.seek(nReg*tamReg);
@@ -54,6 +69,20 @@ public class Alumnos extends RegistroAcademico
         canal.writeUTF(String.format("%-40.40s",scan.nextLine()));
         System.out.print("Ingresa semestre del alumno: ");
         canal.writeUTF(String.format("%-4.4s",scan.nextLine()));
+    }
+    
+    boolean existeNumeroControl(RandomAccessFile canal, String numCtrl) throws IOException 
+    {
+        int totalRegistros = (int)(canal.length() / tamReg);
+
+        for(int i = 0; i < totalRegistros; i++) {
+            canal.seek(i * tamReg);
+            String numControlExistente = canal.readUTF().trim();
+            if(numControlExistente.equals(numCtrl)) {
+                return true;  //Existe
+            }
+        }
+        return false;  //No joven, no existe xd
     }
     
     String[] leerReg(RandomAccessFile canal, int nReg) throws IOException
@@ -178,7 +207,8 @@ public class Alumnos extends RegistroAcademico
     }
 
     @Override
-    public void ordenar() {
+    public void ordenar() 
+    {
         try (RandomAccessFile canal = new RandomAccessFile(nomArch, "rw")) {
             boolean ban;
             String[] datos1;
