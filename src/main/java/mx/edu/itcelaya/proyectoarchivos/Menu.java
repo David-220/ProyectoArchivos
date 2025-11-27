@@ -36,15 +36,17 @@ public class Menu
     {        
         while(op1!=4)
         {    
-            System.out.println("Menú de opciones");
+            System.out.println("Menu de opciones");
             System.out.println("1) Alumnos");
             System.out.println("2) Materias");
             System.out.println("3) Inscripcion");
             System.out.println("4) Salida");
             System.out.println();
-            System.out.print("Ingresa la opcion:");
+            System.out.print("Ingresa la opcion: ");
             
             op1=recibeNum();
+            
+            System.out.println();
             
             switch (op1) 
             {
@@ -72,16 +74,18 @@ public class Menu
         while(op2!=5)
         {  
             
-            System.out.println("Menú de Alumnos");
+            System.out.println("Menu de Alumnos");
             System.out.println("1) Altas");
             System.out.println("2) Consulta");
             System.out.println("3) Reporte");
             System.out.println("4) Modificacion");
             System.out.println("5) Salida");
             System.out.println();
-            System.out.print("Ingresa la opcion:");
+            System.out.print("Ingresa la opcion: ");
             
             op2=recibeNum();
+            
+            System.out.println();
             
             switch (op2) 
             {
@@ -103,6 +107,7 @@ public class Menu
                 case 5:
                     al.ordenar();
                     System.out.println("Regresando al menu principal.");
+                    System.out.println();
                     break;
                 default:
                     System.out.println("Ingrese una opcion valida");
@@ -116,16 +121,18 @@ public class Menu
         while(op2!=5)
         {  
             
-            System.out.println("Menú de Alumnos");
+            System.out.println("Menu de Alumnos");
             System.out.println("1) Altas");
             System.out.println("2) Consulta");
             System.out.println("3) Reporte");
             System.out.println("4) Modificacion");
             System.out.println("5) Salida");
             System.out.println();
-            System.out.print("Ingresa la opcion:");
+            System.out.print("Ingresa la opcion: ");
             
             op2=recibeNum();
+            
+            System.out.println();
             
             switch (op2) 
             {
@@ -144,6 +151,7 @@ public class Menu
                 case 5:
                     //ordenar por si las moscas
                     System.out.println("Regresando al menu principal.");
+                    System.out.println();
                     break;
                 default:
                     System.out.println("Ingrese una opcion valida");

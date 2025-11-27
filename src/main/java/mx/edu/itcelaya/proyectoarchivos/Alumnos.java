@@ -1,8 +1,6 @@
 package mx.edu.itcelaya.proyectoarchivos;
 
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Alumnos extends RegistroAcademico
 {    
@@ -14,9 +12,9 @@ public class Alumnos extends RegistroAcademico
         
         tamReg = 58;
         
-        String tituloCentrado = (String.format("%37s", nomArch));
+        tituloCentrado = (String.format("%37s", nomArch));
             
-        String subTitulos = "  " + String.format("%-8.8s","numCtrl") +"    " + String.format("%-40.40s","nombre") +"    "+ String.format("%-4.4s","sem")+"  ";
+        subTitulos = "  " + String.format("%-8.8s","numCtrl") +"    " + String.format("%-40.40s","nombre") +"    "+ String.format("%-4.4s","sem")+"  ";
            
     }
 
@@ -24,7 +22,7 @@ public class Alumnos extends RegistroAcademico
     public void alta() 
     {
         try (RandomAccessFile canal = new RandomAccessFile(nomArch, "rw")) {
-            //calculamos el renglon
+            
             int nReg=(int)canal.length()/tamReg;
             
             ingresaDatos(canal,nReg);
@@ -43,15 +41,15 @@ public class Alumnos extends RegistroAcademico
         canal.writeUTF(String.format("%-40.40s",scan.nextLine()));
         System.out.print("Ingresa semestre del alumno: ");
         canal.writeUTF(String.format("%-4.4s",scan.nextLine()));
+        System.out.println();
     }
     
     String[] leerReg(RandomAccessFile canal, int nReg) throws IOException
     {
         String[] datosLeidos = new String[3];
-        //posicionamos el cursor
+        
         canal.seek(nReg*tamReg);
 
-        //
         for(int i = 0; i<3; i++)
         {
             datosLeidos[i] = canal.readUTF();
@@ -76,10 +74,10 @@ public class Alumnos extends RegistroAcademico
                 System.out.println(subTitulos);
                 for(int j=0; j<3; j++)
                 {
-                    System.out.print("  " + datos + "  ");
+                    System.out.print("  " + datos[j] + "  ");
                 }
                 System.out.println();
-                
+                System.out.println();
             }
             
         } catch (IOException e) {
@@ -90,23 +88,32 @@ public class Alumnos extends RegistroAcademico
     int busRenglon(RandomAccessFile canal) throws IOException{
         int li, ls, pm;
         //boolean flag1; no la use
-        String bus;
         System.out.print("ingresa numero de control: ");
-        bus = scan.nextLine();
+        String bus = scan.nextLine();
+        System.out.println("bus es: "+bus);
         li = 0;
+        String aux;
+        System.out.println("li "+li);
         ls = (int)(canal.length() / tamReg)-1;
+        System.out.println("ls "+ls);
         do 
         {
             pm = (li+ls)/2;
+            System.out.println("pm "+pm);
             canal.seek(pm*tamReg);
-            if (canal.readUTF().compareTo(bus) < 0) {
+            aux = canal.readUTF();
+            System.out.println("aux " + aux);
+            if (aux.compareTo(bus) < 0) {
+                
                 li = pm+1;
+                System.out.println("li "+li);
             }
             else {
                 ls = pm-1;
+                System.out.println("ls "+ls);
             }
             canal.seek(pm*tamReg);
-        }while(!bus.equals(canal.readUTF()) && li<=ls);
+        }while(!bus.equals(aux) && li<=ls);
         
         if(bus.equals(canal.readUTF()))
         {
@@ -145,6 +152,8 @@ public class Alumnos extends RegistroAcademico
                 System.out.println();
                 salida.println();
             }
+            
+            System.out.println();
             
         } catch (IOException e) {
             System.err.println("Ocurrió un error: " + e.getMessage());
@@ -191,28 +200,29 @@ public class Alumnos extends RegistroAcademico
                 ban = true;
                 for(int j=1;j<=((int)(canal.length()/tamReg)-i);j++)
                 {
+
                     datos1 = leerReg(canal, j-1);
                     datos2 = leerReg(canal, j);
+                    
                     if(datos1[0].compareTo(datos2[0])>0)
                     {
-                        // Se graban en los registros cambiados
-                        canal.seek(j*tamReg);
-                        for(int n = 0; i<3; i++)
-                            {
-                                canal.writeUTF(datos1[n]);
-                            }
-                        canal.seek(j-1*tamReg);
-                        for(int n = 0; i<3; i++)
-                            {
-                                canal.writeUTF(datos2[n]);
-                            }
 
-                        //bandera de que hubo cambio
+                        canal.seek(j*tamReg);
+                        for(int n = 0; n<3; n++)
+                        {
+                            canal.writeUTF(datos1[n]);
+                        }
+
+                        canal.seek((j-1)*tamReg);
+                        for(int n = 0; n<3; n++)
+                        {
+                            canal.writeUTF(datos2[n]);
+                        }
+
                         ban = false;
                     }
                 }
 
-                //rompe ciclo si no hubo cambio
                 if(ban)
                 {
                    break;
