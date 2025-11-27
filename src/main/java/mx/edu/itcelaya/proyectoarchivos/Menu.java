@@ -53,9 +53,10 @@ public class Menu
                     menuAlumnos();
                     break;
                 case 2://Materias
-                    //menuMaterias();
+                    menuMaterias();
                     break;
                 case 3://Inscripcion
+                    System.out.println("Opcion no habilitada aun.");
                     //procesoInscripcion();
                     break;
                 case 4://Fin del programa
@@ -117,7 +118,7 @@ public class Menu
         while(op2!=5)
         {  
             
-            System.out.println("Menú de Alumnos");
+            System.out.println("Menú de Materias");
             System.out.println("1) Altas");
             System.out.println("2) Consulta");
             System.out.println("3) Reporte");
@@ -130,20 +131,24 @@ public class Menu
             
             switch (op2) 
             {
-                case 1:
-                    //altas
+                case 1://Altas
+                    ma.alta();
                     break;
-                case 2:
-                    //bus binaria
+                case 2://Consulta
+                    ma.ordenar();
+                    ma.busqueda();
                     break;
-                case 3:
-                    //reporte
+                case 3://Reporte
+                    ma.ordenar();
+                    ma.reporte();
                     break;
-                case 4:
-                    //mod
+                case 4://Modificacion
+                    ma.ordenar();
+                    ma.modificaciones();
                     break;
-                case 5:
+                case 5://Salida
                     //ordenar por si las moscas
+                    ma.ordenar();
                     System.out.println("Regresando al menu principal.");
                     break;
                 default:

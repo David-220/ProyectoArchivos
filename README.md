@@ -2,15 +2,14 @@
 
 ### Para probar lo que ya esta hecho.
 
-1. Entra en alumnos
-2. prueba lo que quieras
-3. ya, materias e inscripcion no estan habilitados
+1. Entra en alumnos o en materias
+2. Prueba lo que quieras y combrueba que no haya errores
+3. Inscripcion no esta habilitado
 
 ### ya solo me faltan 30 mexicopesos
 
 ## Pendientes 
 * ### Necesarios
-* Materias
 * Inscripciones
 * Menu de inscripciones
 
