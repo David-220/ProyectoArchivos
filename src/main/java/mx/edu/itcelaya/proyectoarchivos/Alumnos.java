@@ -130,27 +130,20 @@ public class Alumnos extends RegistroAcademico
         //boolean flag1; no la use
         System.out.print("ingresa numero de control: ");
         String bus = scan.nextLine();
-        System.out.println("bus es: "+bus);
         li = 0;
         String aux;
-        System.out.println("li "+li);
         ls = (int)(canal.length() / tamReg)-1;
-        System.out.println("ls "+ls);
         do 
         {
             pm = (li+ls)/2;
-            System.out.println("pm "+pm);
             canal.seek(pm*tamReg);
             aux = canal.readUTF();
-            System.out.println("aux " + aux);
             if (aux.compareTo(bus) < 0) {
                 
                 li = pm+1;
-                System.out.println("li "+li);
             }
             else {
                 ls = pm-1;
-                System.out.println("ls "+ls);
             }
             canal.seek(pm*tamReg);
         }while(!bus.equals(aux) && li<=ls);

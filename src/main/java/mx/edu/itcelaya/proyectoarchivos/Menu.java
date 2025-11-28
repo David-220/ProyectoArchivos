@@ -10,6 +10,7 @@ public class Menu
     Inscripcion ins = new Inscripcion();
     int op1 = 0;
     int op2 = 0;
+    boolean op3 = true;
     
     public Menu() 
     {
@@ -61,7 +62,7 @@ public class Menu
                     break;
                 case 3://Inscripcion
                     System.out.println("Opcion no habilitada aun.");
-                    //procesoInscripcion();
+                    //pasoUno();
                     break;
                 case 4://Fin del programa
                     System.out.println("Fin del proceso");
@@ -169,15 +170,28 @@ public class Menu
         }
     }
 
-    private void procesoInscripcion()
+    
+    boolean decision(String indicacion)
     {
-        pasoUno();  
+        String siONo = "";
+        while(true){
+            System.out.println();
+            System.out.print(indicacion);
+            siONo = scan.nextLine().trim().toLowerCase();
+
+            if (siONo.equals("s")) {
+                return true;
+            } else if (siONo.equals("n")) {
+                return false;
+            } else {
+                System.out.println("️Ingrese una opcion valida");
+            }
+        }
     }
 
     private void pasoUno() 
     {
-        System.out.print("Desea inscribir alumno? [S/N]: ");
-        if(true)
+        if(decision("Desea inscribir alumno? [S/N]: "))
         {
             pasoDos();
         }else
@@ -188,36 +202,42 @@ public class Menu
 
     private void pasoDos() 
     {
-        System.out.print("Ingresa numero de control del alumno: ");
-        //
-        //if(al.bus(scan)!=null, cero o lo que sea)
-            //guarda alumno en insAl
+        /*
+        necesitamos un metodo booleano que regrese true si se encontro el numCtrl
+        recordar poner un mensaje de encontrado o no encontrado
+        if(inscri.busNumCtrl){
             pasoTres();
-        //else
-        //no se encontro ese alumno
-        //Desea buscar otro alumno? [S/N]:
-            //if true
-            //pasoDos
-            //else System.out.println("Fin del proceso de inscripcion");      
+        }     
+        else if(decision("Desea buscar otro numero de control? [S/N]: "))
+        {
+            pasoDos();
+        }else
+        {
+            System.out.println("Fin del proceso de inscripcion");
+        }
+        */
     }   
 
     private void pasoTres() 
     {
-        //if(ma.bus(scan)!=null, cero o lo que sea)
-            //guarda clase en insMa si es necesario
-            //graba insAL e insMa en el archivo
+        /*
+        necesitamos un metodo booleano que regrese true si se encontro la materia
+        recordar poner un mensaje de encontrado o no encontrado
+        if(inscri.busMateria){
+            inscri.guardaReg
             pasoCuatro();
-        //else
-        //no se encontro esa materia
-        pasoCuatro();
+        }else {
+            pasoCuatro();
+        }
+        */
     }
 
     private void pasoCuatro() 
     {
-        //elegir otra materia [y/n]
-        //if true
-        pasoTres();
-        //else
-        pasoUno();
+        if(decision("Desea elegir otra materia [S/N]: ")){
+            pasoTres();
+        }else{
+            pasoUno();
+        }
     }
 }
