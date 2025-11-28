@@ -13,7 +13,7 @@ public class Materias extends RegistroAcademico {
         nomRepo = "ReporteMaterias.txt";
         tamReg = 55;
         tituloCentrado = (String.format("%35s", nomArch));   
-        subTitulos = "  " + String.format("%-8.8s","Clave") +"    " + String.format("%-40.40s","Materia") +"    "+ String.format("%-1.1s","Creditos")+"  ";
+        subTitulos = "  " + String.format("%-8.8s","Clave") +"    " + String.format("%-37.37s","Materia") +"    "+ String.format("%-8.8s","Creditos")+"  ";
 
     }
     

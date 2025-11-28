@@ -123,7 +123,7 @@ public class Menu
 
     private void menuMaterias() 
     {
-        while(op2!=5)
+        do
         {  
             
             System.out.println("Menú de Materias");
@@ -167,7 +167,7 @@ public class Menu
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
             } 
-        }
+        }while(op2!=5);
     }
 
     
