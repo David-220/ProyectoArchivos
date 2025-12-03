@@ -96,22 +96,37 @@ public class Materias extends RegistroAcademico {
         }
     }
     
-    int busRenglon(RandomAccessFile canal) throws IOException {
-        String bus;
-        System.out.print("Ingresa la clave de la materia: ");
-        bus = scan.nextLine();
-
-        int totalRegistros = (int)(canal.length() / tamReg);
-
-        for(int i = 0; i < totalRegistros; i++) {
-            canal.seek(i * tamReg);
-            String numControl = canal.readUTF().trim();
-            if(numControl.equals(bus)) {
-                return i;
+    int busRenglon(RandomAccessFile canal) throws IOException{
+        int li, ls, pm;
+        //boolean flag1; no la use
+        System.out.print("ingresa clave de la materia: ");
+        String bus = scan.nextLine();
+        li = 0;
+        String aux;
+        ls = (int)(canal.length() / tamReg)-1;
+        do 
+        {
+            pm = (li+ls)/2;
+            canal.seek(pm*tamReg);
+            aux = canal.readUTF().trim();
+            
+            if(bus.equals(aux))
+            {
+                return pm;
+            }else if (aux.compareTo(bus) < 0) {
+                
+                li = pm+1;
             }
+            else {
+                ls = pm-1;
+            }
+            canal.seek(pm*tamReg);
+        }while(li<=ls);
+        
+        {
+            System.out.println(bus + " no existe");
+            return -1;
         }
-        System.out.println(bus + " no existe");
-        return -1;
     }
     
     String[] leerReg(RandomAccessFile canal, int nReg) throws IOException
