@@ -2,7 +2,7 @@ package mx.edu.itcelaya.proyectoarchivos;
 
 import java.util.Scanner;
 
-public class Menu 
+public class Menu
 {
     Scanner scan = new Scanner(System.in);
     Alumnos al = new Alumnos();
@@ -10,34 +10,35 @@ public class Menu
     Inscripcion ins = new Inscripcion();
     int op1 = 0;
     int op2 = 0;
+    int op4 = 0;
     boolean op3 = true;
-    
-    public Menu() 
+
+    public Menu()
     {
         mainMenu();
     }
-    
+
     public int recibeNum(){
-        
-        try 
+
+        try
         {
             //valida la entrada de un numero
             int numero = Integer.parseInt(scan.nextLine().trim());
-            return numero; 
-            
-        } catch (NumberFormatException e) 
-        {  
+            return numero;
+
+        } catch (NumberFormatException e)
+        {
             //si da error regresara al menu y dara el mensaje default
             System.out.println("Error: Intetnta de nuevo con un numero entero.");
             return 0;
         }
-        
+
     }
 
-    private void mainMenu() 
-    {        
+    private void mainMenu()
+    {
         do
-        {    
+        {
             System.out.println("Menu de opciones");
             System.out.println("1) Alumnos");
             System.out.println("2) Materias");
@@ -45,14 +46,14 @@ public class Menu
             System.out.println("4) Salida");
             System.out.println();
             System.out.print("Ingresa la opcion: ");
-            
+
             op1=recibeNum();
-            
+
 
             System.out.println();
-            
-            switch (op1) 
-                
+
+            switch (op1)
+
             {
                 case 1://Alumnos
                     menuAlumnos();
@@ -61,8 +62,7 @@ public class Menu
                     menuMaterias();
                     break;
                 case 3://Inscripcion
-                    System.out.println("Opcion no habilitada aun.");
-                    //pasoUno();
+                    menuInscripciones();
                     break;
                 case 4://Fin del programa
                     System.out.println("Fin del proceso");
@@ -70,15 +70,15 @@ public class Menu
                 default:
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
-            }            
-        }while(op1!=4);         
+            }
+        }while(op1!=4);
     }
 
-    private void menuAlumnos() 
+    private void menuAlumnos()
     {
         do
-        {  
-            
+        {
+
             System.out.println("Menu de Alumnos");
             System.out.println("1) Altas");
             System.out.println("2) Consulta");
@@ -87,12 +87,12 @@ public class Menu
             System.out.println("5) Salida");
             System.out.println();
             System.out.print("Ingresa la opcion: ");
-            
+
             op2=recibeNum();
-            
+
             System.out.println();
-            
-            switch (op2) 
+
+            switch (op2)
             {
                 case 1: //Altas a alumnos
                     al.alta();
@@ -117,15 +117,15 @@ public class Menu
                 default:
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
-            } 
+            }
         }while(op2!=5);
     }
 
-    private void menuMaterias() 
+    private void menuMaterias()
     {
         do
-        {  
-            
+        {
+
             System.out.println("Menú de Materias");
 
             System.out.println("1) Altas");
@@ -135,12 +135,12 @@ public class Menu
             System.out.println("5) Salida");
             System.out.println();
             System.out.print("Ingresa la opcion: ");
-            
+
             op2=recibeNum();
-            
+
             System.out.println();
-            
-            switch (op2) 
+
+            switch (op2)
             {
                 case 1://Altas
                     ma.alta();
@@ -166,11 +166,38 @@ public class Menu
                 default:
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
-            } 
+            }
         }while(op2!=5);
     }
 
-    
+    public void menuInscripciones(){
+        do {
+            System.out.println("Menu de inscripciones\n1) Inscribir alumno\n2) Reporte de inscripciones\n3) Salida");
+            System.out.println();
+            System.out.print("Ingresa la opcion: ");
+            op4 = recibeNum();
+            switch(op4){
+                case 1:
+                    ins.ordenar();
+                    pasoUno();
+                    break;
+                case 2:
+                    ins.ordenar();
+                    ins.reporte();
+                    break;
+                case 3:
+                    ins.ordenar();
+                    System.out.println("Regresando al menu principal.");
+                    System.out.println();
+                    break;
+                default:
+                    System.out.println("Ingrese una opcion valida");
+                    System.out.println();
+                    break;
+            }
+        } while (op4 != 3);
+    }
+
     boolean decision(String indicacion)
     {
         String siONo = "";
@@ -189,7 +216,7 @@ public class Menu
         }
     }
 
-    private void pasoUno() 
+    private void pasoUno()
     {
         if(decision("Desea inscribir alumno? [S/N]: "))
         {
@@ -200,14 +227,16 @@ public class Menu
         }
     }
 
-    private void pasoDos() 
+    private void pasoDos()
     {
         /*
         necesitamos un metodo booleano que regrese true si se encontro el numCtrl
         recordar poner un mensaje de encontrado o no encontrado
-        if(inscri.busNumCtrl){
+        */
+        if(ins.busNumCtrl()){
+            System.out.println("Registro encontrado\n");
             pasoTres();
-        }     
+        }
         else if(decision("Desea buscar otro numero de control? [S/N]: "))
         {
             pasoDos();
@@ -215,26 +244,28 @@ public class Menu
         {
             System.out.println("Fin del proceso de inscripcion");
         }
-        */
-    }   
 
-    private void pasoTres() 
+    }
+
+    private void pasoTres()
     {
         /*
         necesitamos un metodo booleano que regrese true si se encontro la materia
         recordar poner un mensaje de encontrado o no encontrado
-        if(inscri.busMateria){
-            inscri.guardaReg
-            pasoCuatro();
-        }else {
-            pasoCuatro();
-        }
         */
+        if(ins.busClaMat()){
+                ins.guardaReg();
+                pasoCuatro();
+        }else {
+            System.out.println("Clave de la materia no encontrada, vuelva a intentarlo");
+            pasoTres();
+        }
+
     }
 
-    private void pasoCuatro() 
+    private void pasoCuatro()
     {
-        if(decision("Desea elegir otra materia [S/N]: ")){
+        if(decision("Desea agregar otra materia [S/N]: ")){
             pasoTres();
         }else{
             pasoUno();
