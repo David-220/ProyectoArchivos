@@ -237,12 +237,10 @@ public class Menu
             System.out.println("Registro encontrado\n");
             pasoTres();
         }
-        else if(decision("Desea buscar otro numero de control? [S/N]: "))
+        else
         {
-            pasoDos();
-        }else
-        {
-            System.out.println("Fin del proceso de inscripcion");
+            System.out.println("Num de control no encontrado");
+            pasoUno();
         }
 
     }

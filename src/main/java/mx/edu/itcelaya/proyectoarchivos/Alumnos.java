@@ -73,16 +73,10 @@ public class Alumnos extends RegistroAcademico
     
     boolean existeNumeroControl(RandomAccessFile canal, String numCtrl) throws IOException 
     {
-        int totalRegistros = (int)(canal.length() / tamReg);
-
-        for(int i = 0; i < totalRegistros; i++) {
-            canal.seek(i * tamReg);
-            String numControlExistente = canal.readUTF().trim();
-            if(numControlExistente.equals(numCtrl)) {
-                return true;  //Existe
-            }
-        }
-        return false;  //No joven, no existe xd
+        //Existe
+        //No joven, no existe xd
+         
+        return -1!=busRenglon(canal, numCtrl);  
     }
     
     String[] leerReg(RandomAccessFile canal, int nReg) throws IOException
@@ -160,6 +154,39 @@ public class Alumnos extends RegistroAcademico
         }
     }
 
+    
+    int busRenglon(RandomAccessFile canal, String bus) throws IOException{
+        int li, ls, pm;
+        //boolean flag1; no la use
+
+        li = 0;
+        String aux;
+        ls = (int)(canal.length() / tamReg)-1;
+        do 
+        {
+            pm = (li+ls)/2;
+            canal.seek(pm*tamReg);
+            aux = canal.readUTF().trim();
+            
+            if(bus.equals(aux))
+            {
+                return pm;
+            }else if (aux.compareTo(bus) < 0) {
+                
+                li = pm+1;
+            }
+            else {
+                ls = pm-1;
+            }
+            canal.seek(pm*tamReg);
+        }while(li<=ls);
+        
+        {
+            System.out.println(bus + " no existe");
+            return -1;
+        }
+    }    
+    
     @Override
     public void reporte() 
     {

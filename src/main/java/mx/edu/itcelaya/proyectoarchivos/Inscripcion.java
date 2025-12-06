@@ -45,7 +45,7 @@ public class Inscripcion {
         return false;
     }
 
-
+    
    public void reporte() {
         try (RandomAccessFile entradaIns = new RandomAccessFile(nomArch, "r");
              PrintWriter salida = new PrintWriter(new FileWriter(nomRepo));

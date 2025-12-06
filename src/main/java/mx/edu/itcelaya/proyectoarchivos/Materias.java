@@ -59,16 +59,8 @@ public class Materias extends RegistroAcademico {
     
     boolean existeClaveMat(RandomAccessFile canal, String claveMat) throws IOException 
     {
-        int totalRegistros = (int)(canal.length() / tamReg);
-
-        for(int i = 0; i < totalRegistros; i++) {
-            canal.seek(i * tamReg);
-            String numControlExistente = canal.readUTF().trim();
-            if(numControlExistente.equals(claveMat)) {
-                return true;  //Existe
-            }
-        }
-        return false;  //No joven, no existe xd
+     
+        return -1!=busRenglon(canal, claveMat);
     }
     
     @Override
@@ -101,6 +93,38 @@ public class Materias extends RegistroAcademico {
         //boolean flag1; no la use
         System.out.print("ingresa clave de la materia: ");
         String bus = scan.nextLine();
+        li = 0;
+        String aux;
+        ls = (int)(canal.length() / tamReg)-1;
+        do 
+        {
+            pm = (li+ls)/2;
+            canal.seek(pm*tamReg);
+            aux = canal.readUTF().trim();
+            
+            if(bus.equals(aux))
+            {
+                return pm;
+            }else if (aux.compareTo(bus) < 0) {
+                
+                li = pm+1;
+            }
+            else {
+                ls = pm-1;
+            }
+            canal.seek(pm*tamReg);
+        }while(li<=ls);
+        
+        {
+            System.out.println(bus + " no existe");
+            return -1;
+        }
+    }
+
+
+    int busRenglon(RandomAccessFile canal, String bus) throws IOException{
+        int li, ls, pm;
+        //boolean flag1; no la use
         li = 0;
         String aux;
         ls = (int)(canal.length() / tamReg)-1;
